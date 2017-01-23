@@ -32,7 +32,7 @@ The goals / steps of this project are the following:
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the second code cell of the IPython notebook located in "./Advanced_Lane_Lines.py" in the function called "calibrate_camera".
+The code for this step is contained in the second code cell of the IPython notebook located in "./AdvancedLaneLines.py" in the function called "calibrate_camera".
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -87,7 +87,7 @@ plt.show()
 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at function get_threshold_image   located in "./Advanced_Lane_Lines.py").  Here's an example of my output for this step:
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at function get_threshold_image   located in "./AdvancedLaneLines.py").  Here's an example of my output for this step:
 
 
 ```python
@@ -111,7 +111,7 @@ plt.show()
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform is included in the LaneBuilder.process_image() method which appears in the file `AdvancedLaneLine.py`.  The function takes as inputs an image (`image`), and calculates the source and destination points in the 
+The code for my perspective transform is included in the LaneBuilder.process_image() method which appears in the file "./AdvancedLaneLines.py".  The function takes as inputs an image (`image`), and calculates the source and destination points in the 
 LaneBuilder.get_mask_space() mathod. I chose the hardcode the source and destination points in the following manner:
 
 ```
