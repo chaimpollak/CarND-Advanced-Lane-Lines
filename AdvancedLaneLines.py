@@ -115,7 +115,7 @@ class LineBuilder():
         This method is used to add a point to the line
         @y_loc - the max y location from this histogram
         @hist - a histogram from the thresholded image (at location y_loc) where the values are greater than 0
-        @prev_fit - s polynomial fit from the previous frame
+        @prev_fit - a polynomial fit from the previous frame
         """
         ## if there are no detected points - ignore this y_loc
         if len(hist) <= 1:
@@ -191,7 +191,7 @@ class LineBuilder():
         """
         if len(data) <= 2:
             return data
-        if (max(data) - min(data)) < 30: ##TODO: why 30 ?
+        if (max(data) - min(data)) < 30:
             return data
         d = np.abs(data - np.median(data))
         mdev = np.median(d)

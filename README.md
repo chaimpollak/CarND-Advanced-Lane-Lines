@@ -27,11 +27,12 @@ The goals / steps of this project are the following:
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
+
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the python file "./Advanced_Lane_Lines.py" in the function called "calibrate_camera".
+The code for this step is contained in the second code cell of the IPython notebook located in "./Advanced_Lane_Lines.py" in the function called "calibrate_camera".
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -67,8 +68,17 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 
 ```python
-image = mpimg.imread('frame_1.jpg')
-plt.imshow(image)
+plt.figure(figsize=(10, 12))
+plt.rcParams.update({'font.size': 14})
+image = mpimg.imread('test_images/test6.jpg')
+plt.subplot(1, 2, 1)
+plt.title("original Image")
+plt.axis('off')
+var_holder = plt.imshow(image)
+plt.subplot(1, 2, 2)
+plt.title("undistorted Image")
+plt.axis('off')
+var_holder = plt.imshow(cv2.undistort(image, mtx, dist, None, mtx))
 plt.show()
 ```
 
@@ -83,7 +93,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 ```python
 plt.figure(figsize=(10, 12))
 plt.rcParams.update({'font.size': 14})
-img = mpimg.imread('frame_1.jpg')
+image = mpimg.imread('frame_1.jpg')
 plt.subplot(1, 2, 1)
 plt.title("original Image")
 plt.axis('off')
@@ -177,13 +187,14 @@ plt.show()
 ![png](output_11_0.png)
 
 
-I then saved a max x position and min x position for both lines in every chunck using a sliding window algoritihim or the previous frame if the previous frame has confident lines.
+I then saved a max x position and min x position for both lines in every chunk using a sliding window algorithm or the previous frame if the previous frame has confident lines.
 
 The points were saved in a confident_points list if the line width is between 10 and 55 pixels and at least 40% of the line's width is painted white, otherwise, it was saved in a uncofident_points list (see the LineBuilder.add_point() and LineBuilder.add_point_to_list() methods for more detail).
 
-I used only the confident_points list to create the polynomial when the confident_points list is covering at least a fifth of the image hight and there are at least 3 points in the confident_points list, otherwise I used both lists.
+I used only the confident_points list to create the polynomial when the confident_points list is covering at least a fifth of the image height and there are at least 3 points in the confident_points list, otherwise I used both lists.
 
 The polynomial will take into consideration the previous frame for smoothing purposes (see LaneBuilder.get_polynomial() method for more detail)
+
 
 
 ```python
@@ -270,13 +281,13 @@ plt.show()
 
 Here's a [link to my video result](https://youtu.be/GF6VOiR9aBY)
 
-### Discussion
+## Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-there were many problems that I faced while implementing this project. my first implementation can be found in './Advanced_Lane_Lines_version_1.ipynb'
+    1. perspective transformation: getting a perspective transformation from the image was extremely difficult, I settled on a hard coded src and dst but my goal was really to calculate it dynamically using Hough lines.
+    
+    2. my lane detection algorithm was revised probably 20 times but I still feel that it can be done way more efficient. for example, there are a lot of parameters that I used based off of revised experience, (width of lane line, re-build lines if 5 frames weren't found, number of pixels to ignore, etc.) and for all of them you may ask why I used X and not Y.
+    
+    3. my end goal was really to color the actual lane lines a different color (this should be fairly easy with my current data).
 
-
-```python
-
-```
