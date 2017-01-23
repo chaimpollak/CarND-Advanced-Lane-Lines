@@ -409,10 +409,8 @@ class LaneBuilder():
     
 def main():
     project_output = 'project_output.mp4'
-
-	mtx, dist = calibrate_camera()
-	lane_builder = LaneBuilder(mtx, dist)
-
+    mtx, dist = calibrate_camera()
+    lane_builder = LaneBuilder(mtx, dist)
     video_file = VideoFileClip( 'project_video.mp4')
     vid = video_file.fl_image(lane_builder.process_image)
 	
